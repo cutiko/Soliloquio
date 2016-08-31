@@ -7,23 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PlayerFragment extends Fragment {
+public class BioFragment extends Fragment {
 
-    public static PlayerFragment newInstance() {
-        return new PlayerFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //TODO BUNDLE THE SERVICE PLAYER
+    public static BioFragment newInstance() {
+        return new BioFragment();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_player, container, false);
+        return inflater.inflate(R.layout.fragment_bio, container, false);
     }
 
 }
