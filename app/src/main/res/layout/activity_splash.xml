@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:pv="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimaryDark"
+    tools:context="cl.cutiko.soliloquio.SplashActivity">
+
+    <me.wangyuwei.particleview.ParticleView
+        android:id="@+id/introParticle"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        pv:pv_background_color="@color/colorPrimaryDarker"
+        pv:pv_host_text="Paul"
+        pv:pv_particle_text="O' Moia"
+        pv:pv_particle_text_size="45sp"
+        pv:pv_text_color="@android:color/white" />
+
+</RelativeLayout>
