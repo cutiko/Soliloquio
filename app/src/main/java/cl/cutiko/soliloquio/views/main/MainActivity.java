@@ -37,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbar);
-        collapsingToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, android.R.color.transparent));
-
         final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appBar);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
