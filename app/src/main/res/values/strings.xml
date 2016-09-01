@@ -5,4 +5,6 @@
 
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur culpa cumque delectus dicta ea esse harum impedit in incidunt iusto libero mollitia, omnis placeat qui quia sapiente tenetur vero voluptatem?</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

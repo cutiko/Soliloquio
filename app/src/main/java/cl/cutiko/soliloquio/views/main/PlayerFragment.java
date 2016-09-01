@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +40,15 @@ public class PlayerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.songsList);
 
         List<String> strings = new ArrayList<>();
+
+        for (int i = 0; i < 40; i++) {
+            strings.add(String.valueOf(i));
+            Log.d("DATA", String.valueOf(i));
+        }
 
         SongsAdapter songsAdapter = new SongsAdapter(strings);
 
@@ -52,16 +57,7 @@ public class PlayerFragment extends Fragment {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.setHasFixedSize(true);
-
-        recyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
-
         recyclerView.setAdapter(songsAdapter);
 
-        for (int i = 0; i < 40; i++) {
-            strings.add(String.valueOf(i));
-            Log.d("DATA", String.valueOf(i));
-        }
-        songsAdapter.notifyDataSetChanged();
     }
 }

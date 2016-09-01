@@ -8,9 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
-
 import cl.cutiko.soliloquio.R;
 
 public class BioFragment extends Fragment {
@@ -29,8 +26,6 @@ public class BioFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ObservableScrollView observableScrollView = (ObservableScrollView) view.findViewById(R.id.scrollView);
 
-        MaterialViewPagerHelper.registerScrollView(getActivity(), observableScrollView, null);
     }
 }
