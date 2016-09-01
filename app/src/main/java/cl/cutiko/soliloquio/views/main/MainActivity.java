@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
         // primary sections of the activity.
         TabsAdapter tabsAdapter = new TabsAdapter(getSupportFragmentManager(), this);
 
+        getSupportActionBar().hide();
+
         // Set up the ViewPager with the sections adapter.
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(tabsAdapter);
@@ -48,8 +50,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                if (1 == position) {
-                    appBarLayout.setExpanded(false);
+                switch (position) {
+                    case 1:
+                        appBarLayout.setBackgroundResource(R.drawable.bio);
+                        break;
+                    default:
+                        appBarLayout.setBackgroundResource(R.drawable.cover);
+                        break;
                 }
             }
 
