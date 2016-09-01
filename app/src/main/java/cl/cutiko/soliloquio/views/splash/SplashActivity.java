@@ -1,11 +1,12 @@
-package cl.cutiko.soliloquio;
+package cl.cutiko.soliloquio.views.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import cl.cutiko.soliloquio.R;
+import cl.cutiko.soliloquio.views.main.MainActivity;
 import me.wangyuwei.particleview.ParticleView;
 
 
