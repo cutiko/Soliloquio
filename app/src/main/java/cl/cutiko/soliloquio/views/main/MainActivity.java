@@ -34,7 +34,11 @@ public class MainActivity extends AppCompatActivity implements MaterialViewPager
             setSupportActionBar(toolbar);
         }
 
-        getSupportActionBar().hide();
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        } catch (NullPointerException e) {
+
+        }
 
         mViewPager.getViewPager().setAdapter(new TabsAdapter(getSupportFragmentManager(), this));
 
@@ -58,5 +62,10 @@ public class MainActivity extends AppCompatActivity implements MaterialViewPager
                         ContextCompat.getDrawable(context, R.drawable.bio));
         }
         return null;
+    }
+
+
+    @Override
+    public void onBackPressed() {
     }
 }
