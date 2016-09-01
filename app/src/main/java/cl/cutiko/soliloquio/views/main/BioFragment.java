@@ -2,10 +2,14 @@ package cl.cutiko.soliloquio.views.main;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 
 import cl.cutiko.soliloquio.R;
 
@@ -22,4 +26,11 @@ public class BioFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_bio, container, false);
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ObservableScrollView observableScrollView = (ObservableScrollView) view.findViewById(R.id.scrollView);
+
+        MaterialViewPagerHelper.registerScrollView(getActivity(), observableScrollView, null);
+    }
 }

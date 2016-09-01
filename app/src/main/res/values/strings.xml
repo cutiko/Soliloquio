@@ -3,9 +3,6 @@
     <string name="record">ESCUHA SOLILOQUIO</string>
     <string name="bio">CONOCE A PAUL\'O MOIA</string>
 
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur culpa cumque delectus dicta ea esse harum impedit in incidunt iusto libero mollitia, omnis placeat qui quia sapiente tenetur vero voluptatem?</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>
