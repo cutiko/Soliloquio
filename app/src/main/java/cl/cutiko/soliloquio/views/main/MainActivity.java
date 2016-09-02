@@ -11,6 +11,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.flaviofaria.kenburnsview.KenBurnsView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.adapters.TabsAdapter;
@@ -37,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        final AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.appBar);
+        final KenBurnsView kenBurnsView = (KenBurnsView) findViewById(R.id.kenBurnsIv);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -49,10 +58,10 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 1:
-                        appBarLayout.setBackgroundResource(R.drawable.bio);
+                        kenBurnsView.setImageResource(R.drawable.bio);
                         break;
                     default:
-                        appBarLayout.setBackgroundResource(R.drawable.cover);
+                        kenBurnsView.setImageResource(R.drawable.cover);
                         break;
                 }
             }
@@ -61,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrollStateChanged(int state) {
 
             }
-        });
 
+        });
 
     }
 
