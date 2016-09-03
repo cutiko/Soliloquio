@@ -4,11 +4,10 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 
+import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.views.main.BioFragment;
 import cl.cutiko.soliloquio.views.main.PlayerFragment;
-import cl.cutiko.soliloquio.R;
 
 /**
  * Created by cutiko on 31-08-16.
