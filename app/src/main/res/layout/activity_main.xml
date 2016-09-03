@@ -52,14 +52,13 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <LinearLayout
-        android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         android:elevation="16dp"
         android:orientation="vertical"
         android:paddingTop="6dp"
-        app:behavior_hideable="true"
+        app:behavior_hideable="false"
         app:behavior_peekHeight="42dp"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
