@@ -66,7 +66,6 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
             android:scaleType="center"
             android:src="@mipmap/ic_drag_handle_white_24dp" />
 

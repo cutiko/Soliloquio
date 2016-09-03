@@ -1,13 +1,22 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="12dp"
     tools:context="cl.cutiko.soliloquio.views.main.BottomSheetFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <info.abdolahi.CircularMusicProgressBar
+        android:id="@+id/songArt"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/cover"
+        app:border_color="@android:color/white"
+        app:border_width="2dp"
+        app:centercircle_diammterer="1"
+        app:progress_color="@color/colorAccent"
+        app:progress_startAngle="0" />
 
-</FrameLayout>
+
+
+</RelativeLayout>
