@@ -55,7 +55,7 @@
         android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDarker"
+        android:background="@color/colorPrimaryDark"
         android:elevation="16dp"
         android:orientation="vertical"
         android:paddingTop="6dp"
