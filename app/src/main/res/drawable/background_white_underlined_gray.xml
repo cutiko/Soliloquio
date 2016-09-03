@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true" android:drawable="@drawable/bg_pressed_focused_underlined"/>
+
+    <item android:state_focused="true" android:drawable="@drawable/bg_pressed_focused_underlined"/>
 
     <item>
-        <color android:color="@android:color/darker_gray"/>
+        <layer-list>
+            <item>
+                <color android:color="@android:color/darker_gray"/>
+            </item>
+            <item android:bottom="1dp">
+                <color android:color="@android:color/white"/>
+            </item>
+        </layer-list>
     </item>
 
-    <item android:bottom="1dp">
-        <color android:color="@android:color/white"/>
-    </item>
-
-</layer-list>
+</selector>
