@@ -17,16 +17,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setMenu();
+        setPager();
 
+    }
+
+    private void setMenu(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
+        getSupportActionBar().hide();
+    }
+
+    private void setPager(){
         TabsAdapter tabsAdapter = new TabsAdapter(getSupportFragmentManager(), this);
 
-        getSupportActionBar().hide();
-
-        // Set up the ViewPager with the sections adapter.
         ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(tabsAdapter);
 
@@ -59,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
     }
 
     @Override
     public void onBackPressed() {
     }
+
 }
