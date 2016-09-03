@@ -42,14 +42,7 @@ public class PlayerFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.songsList);
 
-        List<String> strings = new ArrayList<>();
-
-        for (int i = 0; i < 40; i++) {
-            strings.add(String.valueOf(i));
-            Log.d("DATA", String.valueOf(i));
-        }
-
-        SongsAdapter songsAdapter = new SongsAdapter(strings);
+        SongsAdapter songsAdapter = new SongsAdapter();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
