@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cl.cutiko.soliloquio">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +24,11 @@
         <activity
             android:name=".views.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".background.PlayerService"
+            android:enabled="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>
