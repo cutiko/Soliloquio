@@ -40,7 +40,7 @@ public class BottomSheetFragment extends Fragment {
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
                 PlayerService.LocalBinder binder = (PlayerService.LocalBinder) iBinder;
                 playerService = binder.getService();
-                playerService.testMethod();
+                playerService.setSongs();
                 isBound = true;
             }
 
