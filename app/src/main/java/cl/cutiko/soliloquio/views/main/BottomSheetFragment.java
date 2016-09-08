@@ -25,6 +25,7 @@ public class BottomSheetFragment extends Fragment {
 
     private PlayerService playerService;
     private boolean isBound = false;
+    private ServiceConnection serviceConnection;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -34,7 +35,7 @@ public class BottomSheetFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         Intent intent = new Intent(getContext(), PlayerService.class);
-        ServiceConnection serviceConnection = new ServiceConnection() {
+        serviceConnection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
                 PlayerService.LocalBinder binder = (PlayerService.LocalBinder) iBinder;
@@ -63,5 +64,14 @@ public class BottomSheetFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         CircularMusicProgressBar circularPb = (CircularMusicProgressBar) view.findViewById(R.id.songArt);
         circularPb.setValue(40);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (isBound) {
+            getActivity().unbindService(serviceConnection);
+            isBound = false;
+        }
+        super.onDestroy();
     }
 }
