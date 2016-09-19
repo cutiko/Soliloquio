@@ -56,15 +56,21 @@ public class PlayerService extends Service {
             mediaPlayer.stop();
         }
         try {
-            Log.d("CLICK", "play");
             mediaPlayer.setDataSource(this, uriSong);
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     mediaPlayer.start();
+                    /*int duration = mediaPlayer.getDuration();
+                    while (mediaPlayer.isPlaying()) {
+                        int position  = mediaPlayer.getCurrentPosition();
+                        int progress = position/duration*100;
+                        Log.d("PROGRESS", String.valueOf(progress));
+                    }*/
                 }
             });
+
         } catch (IOException e) {
             e.printStackTrace();
         }
