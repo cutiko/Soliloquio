@@ -57,24 +57,6 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
             @Override
             public void onClick(View view) {
                 broadcastSong("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(auxPosition));
-                Log.d("CLICK", String.valueOf(auxPosition));
-                /*MediaPlayer mediaPlayer = new MediaPlayer();
-                mediaPlayer.reset();
-                try {
-                    Log.d("CLICK", "play");
-                    Uri uri = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(auxPosition));
-                    mediaPlayer.setDataSource(view.getContext(), uri);
-                    mediaPlayer.prepareAsync();
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mediaPlayer) {
-                            mediaPlayer.start();
-                        }
-                    });
-                } catch (IOException e) {
-                    Log.d("CLICK", "exception");
-                    e.printStackTrace();
-                }*/
             }
         });
     }

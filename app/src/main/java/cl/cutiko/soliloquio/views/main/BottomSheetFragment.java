@@ -36,6 +36,7 @@ public class BottomSheetFragment extends Fragment {
     private IntentFilter intentFilter;
 
     private BottomSheetBehavior bottomSheetBehavior;
+    private CircularMusicProgressBar circularPb;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -70,7 +71,10 @@ public class BottomSheetFragment extends Fragment {
             public void onReceive(Context context, Intent intent) {
                 if (intent != null) {
                     if (SongsAdapter.SONG_ACTION.equals(intent.getAction())) {
-                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        if (BottomSheetBehavior.STATE_COLLAPSED == bottomSheetBehavior.getState()) {
+                            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                        }
+                        playerService.playSong(intent.getStringExtra(SongsAdapter.SONG_EXTRA));
                     }
                 }
             }
@@ -92,8 +96,8 @@ public class BottomSheetFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CircularMusicProgressBar circularPb = (CircularMusicProgressBar) view.findViewById(R.id.songArt);
-        circularPb.setValue(40);
+        circularPb = (CircularMusicProgressBar) view.findViewById(R.id.songArt);
+        /*circularPb.setValue(40);*/
     }
 
     @Override

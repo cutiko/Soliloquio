@@ -49,6 +49,26 @@ public class PlayerService extends Service {
         }
 
     }
+    public void playSong(String songName) {
+        Uri uriSong = Uri.parse(songName);
+        mediaPlayer.reset();
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+        try {
+            Log.d("CLICK", "play");
+            mediaPlayer.setDataSource(this, uriSong);
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mediaPlayer) {
+                    mediaPlayer.start();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void setSongs() {
         Field[] files = R.raw.class.getFields();
