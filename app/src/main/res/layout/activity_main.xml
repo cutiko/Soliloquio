@@ -34,14 +34,6 @@
                 app:tabContentStart="72dp"
                 app:tabMode="scrollable" />
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:layout_collapseMode="parallax"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
