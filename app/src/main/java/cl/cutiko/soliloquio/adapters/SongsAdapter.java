@@ -34,9 +34,6 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
         for(int i = 0; i < fields.length; i++){
             songs.add(fields[i].getName());
         }
-
-        //Play it
-        //int resourceID=fields[count].getInt(fields[count]);
     }
 
     @Override
