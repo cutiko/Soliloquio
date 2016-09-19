@@ -49,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 switch (position) {
                     case 1:
-                        kenBurnsView.setImageResource(R.drawable.bio);
+                        kenBurnsView.setImageResource(R.mipmap.back_quote);
                         break;
                     default:
-                        kenBurnsView.setImageResource(R.drawable.cover);
+                        kenBurnsView.setImageResource(R.mipmap.front_cover);
                         break;
                 }
             }

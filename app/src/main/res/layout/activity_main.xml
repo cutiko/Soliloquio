@@ -24,7 +24,7 @@
                 android:id="@+id/kenBurnsIv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/cover" />
+                android:src="@mipmap/front_cover" />
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
