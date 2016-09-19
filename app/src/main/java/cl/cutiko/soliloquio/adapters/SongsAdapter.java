@@ -1,9 +1,12 @@
 package cl.cutiko.soliloquio.adapters;
 
 import android.content.ContentUris;
+import android.content.Context;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,9 +26,13 @@ import cl.cutiko.soliloquio.R;
  */
 public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> {
 
+    public static final String SONG_ACTION = "cl.cutiko.soliloquio.adapters.SongsAdpater.SONG_ACTION";
+    public static final String SONG_EXTRA = "cl.cutiko.soliloquio.adapters.SongsAdpater.SONG_EXTRA";
     private List<String> songs = new ArrayList<>();
+    private Context context;
 
-    public SongsAdapter() {
+    public SongsAdapter(Context context) {
+        this.context = context;
         setList();
     }
 
@@ -49,8 +56,9 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                broadcastSong("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(auxPosition));
                 Log.d("CLICK", String.valueOf(auxPosition));
-                MediaPlayer mediaPlayer = new MediaPlayer();
+                /*MediaPlayer mediaPlayer = new MediaPlayer();
                 mediaPlayer.reset();
                 try {
                     Log.d("CLICK", "play");
@@ -66,7 +74,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
                 } catch (IOException e) {
                     Log.d("CLICK", "exception");
                     e.printStackTrace();
-                }
+                }*/
             }
         });
     }
@@ -83,6 +91,14 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
             super(view);
             name = (TextView) view.findViewById(R.id.songName);
         }
+
+    }
+
+    private void broadcastSong(String songName){
+        Intent broadcastSong = new Intent();
+        broadcastSong.setAction(SONG_ACTION);
+        broadcastSong.putExtra(SONG_EXTRA, songName);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastSong);
 
     }
 

@@ -37,7 +37,7 @@ public class PlayerFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.songsList);
 
-        SongsAdapter songsAdapter = new SongsAdapter();
+        SongsAdapter songsAdapter = new SongsAdapter(getContext());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);

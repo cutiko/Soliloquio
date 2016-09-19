@@ -1,9 +1,11 @@
 package cl.cutiko.soliloquio.views.main;
 
 
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -12,12 +14,15 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import cl.cutiko.soliloquio.R;
+import cl.cutiko.soliloquio.adapters.SongsAdapter;
 import cl.cutiko.soliloquio.background.PlayerService;
 import info.abdolahi.CircularMusicProgressBar;
 
@@ -26,6 +31,11 @@ public class BottomSheetFragment extends Fragment {
     private PlayerService playerService;
     private boolean isBound = false;
     private ServiceConnection serviceConnection;
+
+    private BroadcastReceiver broadcastReceiver;
+    private IntentFilter intentFilter;
+
+    private BottomSheetBehavior bottomSheetBehavior;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -50,6 +60,26 @@ public class BottomSheetFragment extends Fragment {
             }
         };
         getActivity().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        setReceiver();
+        setFilter();
+    }
+
+    private void setReceiver(){
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent != null) {
+                    if (SongsAdapter.SONG_ACTION.equals(intent.getAction())) {
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    }
+                }
+            }
+        };
+    }
+
+    private void setFilter(){
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(SongsAdapter.SONG_ACTION);
     }
 
     @Override
@@ -67,11 +97,30 @@ public class BottomSheetFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        LinearLayout bottomSheet = (LinearLayout) getActivity().findViewById(R.id.bottomSheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+    }
+
+    @Override
     public void onDestroy() {
         if (isBound) {
             getActivity().unbindService(serviceConnection);
             isBound = false;
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
     }
 }
