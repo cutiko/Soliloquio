@@ -5,5 +5,9 @@
     <color name="colorPrimaryDarker">#FFA000</color>
     <color name="colorAccent">#FF9800</color>
 
+    <color name="colorWhiteTransparent">#a8ffffff</color>
+
     <color name="black_overlay">#66000000</color>
+    <color name="black_overlay_dark">#000000</color>
+
 </resources>

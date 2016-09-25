@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+
         final KenBurnsView kenBurnsView = (KenBurnsView) findViewById(R.id.kenBurnsIv);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
