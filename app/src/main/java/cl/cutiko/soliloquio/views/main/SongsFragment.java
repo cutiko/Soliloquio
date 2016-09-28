@@ -6,22 +6,26 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.adapters.SongsAdapter;
+import cl.cutiko.soliloquio.background.SongList;
 
 public class SongsFragment extends Fragment {
 
+    private SongsAdapter songsAdapter;
+
     public static SongsFragment newInstance() {
         return new SongsFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -37,7 +41,7 @@ public class SongsFragment extends Fragment {
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.songsList);
 
-        SongsAdapter songsAdapter = new SongsAdapter(getContext());
+        songsAdapter = new SongsAdapter(getContext());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -46,5 +50,19 @@ public class SongsFragment extends Fragment {
 
         recyclerView.setAdapter(songsAdapter);
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        new SetSongs().execute();
+    }
+
+    private class SetSongs extends SongList {
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            List<String> songs = getSongs();
+            songsAdapter.setList(songs);
+        }
     }
 }

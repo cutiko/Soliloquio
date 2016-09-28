@@ -33,14 +33,11 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
 
     public SongsAdapter(Context context) {
         this.context = context;
-        setList();
     }
 
-    private void setList(){
-        Field[] fields = R.raw.class.getFields();
-        for(int i = 0; i < fields.length; i++){
-            songs.add(fields[i].getName());
-        }
+    public void setList(List<String> songs){
+        this.songs.addAll(songs);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -81,7 +78,6 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
         broadcastSong.setAction(SONG_ACTION);
         broadcastSong.putExtra(SONG_EXTRA, songName);
         LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastSong);
-
     }
 
 }

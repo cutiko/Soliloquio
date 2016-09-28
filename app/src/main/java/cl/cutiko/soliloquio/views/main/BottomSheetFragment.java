@@ -24,6 +24,7 @@ import android.widget.Toast;
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.adapters.SongsAdapter;
 import cl.cutiko.soliloquio.background.PlayerService;
+import cl.cutiko.soliloquio.background.SongList;
 import info.abdolahi.CircularMusicProgressBar;
 
 public class BottomSheetFragment extends Fragment {
@@ -108,15 +109,6 @@ public class BottomSheetFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        if (isBound) {
-            getActivity().unbindService(serviceConnection);
-            isBound = false;
-        }
-        super.onDestroy();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, intentFilter);
@@ -126,5 +118,14 @@ public class BottomSheetFragment extends Fragment {
     public void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (isBound) {
+            getActivity().unbindService(serviceConnection);
+            isBound = false;
+        }
+        super.onDestroy();
     }
 }
