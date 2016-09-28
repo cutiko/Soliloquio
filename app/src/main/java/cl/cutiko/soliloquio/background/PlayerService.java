@@ -73,12 +73,15 @@ public class PlayerService extends Service {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     mediaPlayer.start();
-                    /*int duration = mediaPlayer.getDuration();
-                    while (mediaPlayer.isPlaying()) {
-                        int position  = mediaPlayer.getCurrentPosition();
-                        int progress = position/duration*100;
-                        Log.d("PROGRESS", String.valueOf(progress));
-                    }*/
+                }
+            });
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    if (PlayerService.this.position != songs.size()-1) {
+                        PlayerService.this.position++;
+                        playSong(PlayerService.this.position);
+                    }
                 }
             });
 
