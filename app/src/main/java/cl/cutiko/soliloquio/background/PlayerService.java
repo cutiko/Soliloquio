@@ -135,6 +135,10 @@ public class PlayerService extends Service {
         return mediaPlayer.isPlaying();
     }
 
+    public String getSongName() {
+        return songs.get(position);
+    }
+
     public void setSongs() {
         Field[] files = R.raw.class.getFields();
         Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + R.raw.pa);

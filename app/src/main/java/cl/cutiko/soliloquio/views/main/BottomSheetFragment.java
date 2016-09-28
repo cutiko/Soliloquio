@@ -8,19 +8,17 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -44,6 +42,7 @@ public class BottomSheetFragment extends Fragment {
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageButton playBtn, prevBtn, nextBtn;
     private CircularMusicProgressBar circularPb;
+    private TextView songName;
 
     private static final int PLAYING = 1;
     private static final int PAUSED = 0;
@@ -114,12 +113,15 @@ public class BottomSheetFragment extends Fragment {
         prevBtn = (ImageButton) view.findViewById(R.id.prevBtn);
         playBtn = (ImageButton) view.findViewById(R.id.playBtn);
         nextBtn = (ImageButton) view.findViewById(R.id.nextBtn);
+        songName = (TextView) view.findViewById(R.id.songName);
+
 
         prevBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playerService.prevSong();
                 updateProgress();
+                setSongName();
             }
         });
 
@@ -136,6 +138,7 @@ public class BottomSheetFragment extends Fragment {
             public void onClick(View view) {
                 playerService.nextSong();
                 updateProgress();
+                setSongName();
             }
         });
     }
@@ -167,11 +170,13 @@ public class BottomSheetFragment extends Fragment {
             playerService.resumeSong();
             playBtn.setTag(PLAYING);
             updateProgress();
+            songName.setText(playerService.getSongName());
         } else {
             playBtn.setImageResource(R.mipmap.ic_play_arrow_white_24dp);
             playerService.pauseSong();
             playBtn.setTag(PAUSED);
             resetProgress();
+            songName.setText(getString(R.string.app_name));
         }
     }
 
@@ -210,5 +215,9 @@ public class BottomSheetFragment extends Fragment {
             isBound = false;
         }
         super.onDestroy();
+    }
+
+    private void setSongName(){
+        songName.setText(playerService.getSongName());
     }
 }
