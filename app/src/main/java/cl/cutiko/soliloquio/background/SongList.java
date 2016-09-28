@@ -1,6 +1,9 @@
 package cl.cutiko.soliloquio.background;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.content.LocalBroadcastManager;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

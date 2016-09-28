@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import cl.cutiko.soliloquio.R;
@@ -32,7 +33,11 @@ public class PlayerService extends Service {
 
     private final IBinder binder = new LocalBinder();
     private MediaPlayer mediaPlayer = new MediaPlayer();
+    private List<String> songs = new ArrayList<>();
 
+    public void setSongs(List<String> songs) {
+        this.songs = songs;
+    }
 
     public PlayerService() {
     }
