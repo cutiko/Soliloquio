@@ -34,6 +34,7 @@ public class PlayerService extends Service {
     private final IBinder binder = new LocalBinder();
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private List<String> songs = new ArrayList<>();
+    private Integer position;
 
     public PlayerService() {
     }
@@ -58,8 +59,9 @@ public class PlayerService extends Service {
         }
     }
 
-    public void playSong(int songPosition) {
-        Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(songPosition));
+    public void playSong(int position) {
+        this.position = position;
+        Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(position));
         mediaPlayer.reset();
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
@@ -82,6 +84,42 @@ public class PlayerService extends Service {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void pauseSong() {
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        }
+    }
+
+    public void resumeSong() {
+        if (position != null) {
+            playSong(position);
+        } else {
+            playSong(0);
+        }
+    }
+
+    public void prevSong() {
+        if (position != null) {
+            if (position == 0) {
+                playSong(position);
+            } else {
+                position--;
+                playSong(position);
+            }
+        }
+    }
+
+    public void nextSong() {
+        if (position != null) {
+            if (position == songs.size()-1) {
+                playSong(position);
+            } else {
+                position++;
+                playSong(position);
+            }
         }
     }
 

@@ -13,20 +13,15 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.adapters.SongsAdapter;
 import cl.cutiko.soliloquio.background.PlayerService;
-import cl.cutiko.soliloquio.models.Song;
 import info.abdolahi.CircularMusicProgressBar;
 
 public class BottomSheetFragment extends Fragment {
@@ -39,7 +34,11 @@ public class BottomSheetFragment extends Fragment {
     private IntentFilter intentFilter;
 
     private BottomSheetBehavior bottomSheetBehavior;
+    private ImageButton playBtn, prevBtn, nextBtn;
     private CircularMusicProgressBar circularPb;
+
+    private static final int PLAYING = 1;
+    private static final int PAUSED = 0;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -77,6 +76,7 @@ public class BottomSheetFragment extends Fragment {
                             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         }
                         playerService.playSong(intent.getIntExtra(SongsAdapter.SONG_POSITION, 0));
+                        updatePlayBtn();
                     } else if (SongsFragment.SONGS.equals(intent.getAction())) {
                         playerService.setSongs(intent.getStringArrayListExtra(SongsFragment.SONGS_LIST));
                     }
@@ -102,6 +102,32 @@ public class BottomSheetFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         circularPb = (CircularMusicProgressBar) view.findViewById(R.id.songArt);
+        prevBtn = (ImageButton) view.findViewById(R.id.prevBtn);
+        playBtn = (ImageButton) view.findViewById(R.id.playBtn);
+        nextBtn = (ImageButton) view.findViewById(R.id.nextBtn);
+
+        prevBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playerService.prevSong();
+            }
+        });
+
+        playBtn.setTag(PAUSED);
+        playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updatePlayBtn();
+            }
+        });
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                playerService.nextSong();
+            }
+        });
+
         /*circularPb.setValue(40);*/
     }
 
@@ -122,6 +148,18 @@ public class BottomSheetFragment extends Fragment {
     public void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
+    }
+
+    private void updatePlayBtn(){
+        if (PAUSED == (int) playBtn.getTag()) {
+            playBtn.setImageResource(R.mipmap.ic_stop_white_24dp);
+            playerService.resumeSong();
+            playBtn.setTag(PLAYING);
+        } else {
+            playBtn.setImageResource(R.mipmap.ic_play_arrow_white_24dp);
+            playerService.pauseSong();
+            playBtn.setTag(PAUSED);
+        }
     }
 
     @Override
