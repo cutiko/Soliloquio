@@ -9,22 +9,24 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.adapters.SongsAdapter;
 import cl.cutiko.soliloquio.background.PlayerService;
-import cl.cutiko.soliloquio.background.SongList;
+import cl.cutiko.soliloquio.models.Song;
 import info.abdolahi.CircularMusicProgressBar;
 
 public class BottomSheetFragment extends Fragment {
@@ -52,7 +54,6 @@ public class BottomSheetFragment extends Fragment {
             public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
                 PlayerService.LocalBinder binder = (PlayerService.LocalBinder) iBinder;
                 playerService = binder.getService();
-                playerService.setSongs();
                 isBound = true;
             }
 
@@ -75,9 +76,9 @@ public class BottomSheetFragment extends Fragment {
                         if (BottomSheetBehavior.STATE_COLLAPSED == bottomSheetBehavior.getState()) {
                             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         }
-                        playerService.playSong(intent.getStringExtra(SongsAdapter.SONG_EXTRA));
-                    } else if (SongsFragment.SONG_LIST.equals(intent.getAction())) {
-                        playerService.setSongs(intent.getStringArrayListExtra(SongsFragment.SONG_LIST));
+                        playerService.playSong(intent.getIntExtra(SongsAdapter.SONG_POSITION, 0));
+                    } else if (SongsFragment.SONGS.equals(intent.getAction())) {
+                        playerService.setSongs(intent.getStringArrayListExtra(SongsFragment.SONGS_LIST));
                     }
                 }
             }

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,7 @@ public class SongsFragment extends Fragment {
 
     private SongsAdapter songsAdapter;
     public static final String SONGS = "cl.cutiko.soliloquio.views.background.SongList.SONGS";
-    public static final String SONG_LIST = "cl.cutiko.soliloquio.views.background.SongList.SONG_LIST";
+    public static final String SONGS_LIST = "cl.cutiko.soliloquio.views.background.SongList.SONGS_LIST";
     private boolean areSongSet = false;
 
     public static SongsFragment newInstance() {
@@ -69,7 +70,7 @@ public class SongsFragment extends Fragment {
             songsAdapter.setList(songs);
             Intent sendSongs = new Intent();
             sendSongs.setAction(SONGS);
-            sendSongs.putStringArrayListExtra(SONG_LIST, (ArrayList<String>) songs);
+            sendSongs.putStringArrayListExtra(SONGS_LIST, (ArrayList<String>) songs);
             LocalBroadcastManager.getInstance(getContext()).sendBroadcast(sendSongs);
             areSongSet = true;
         }

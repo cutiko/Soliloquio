@@ -1,21 +1,14 @@
 package cl.cutiko.soliloquio.adapters;
 
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +20,7 @@ import cl.cutiko.soliloquio.R;
 public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> {
 
     public static final String SONG_ACTION = "cl.cutiko.soliloquio.adapters.SongsAdpater.SONG_ACTION";
-    public static final String SONG_EXTRA = "cl.cutiko.soliloquio.adapters.SongsAdpater.SONG_EXTRA";
+    public static final String SONG_POSITION = "cl.cutiko.soliloquio.adapters.SongsAdpater.SONG_POSITION";
     private List<String> songs = new ArrayList<>();
     private Context context;
 
@@ -53,7 +46,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
         holder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                broadcastSong("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(auxPosition));
+                broadcastSong(auxPosition);
             }
         });
     }
@@ -73,10 +66,10 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
 
     }
 
-    private void broadcastSong(String songName){
+    private void broadcastSong(int songPosition){
         Intent broadcastSong = new Intent();
         broadcastSong.setAction(SONG_ACTION);
-        broadcastSong.putExtra(SONG_EXTRA, songName);
+        broadcastSong.putExtra(SONG_POSITION, songPosition);
         LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastSong);
     }
 

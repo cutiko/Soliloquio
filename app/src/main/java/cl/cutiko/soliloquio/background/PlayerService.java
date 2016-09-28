@@ -35,10 +35,6 @@ public class PlayerService extends Service {
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private List<String> songs = new ArrayList<>();
 
-    public void setSongs(List<String> songs) {
-        this.songs = songs;
-    }
-
     public PlayerService() {
     }
 
@@ -54,8 +50,16 @@ public class PlayerService extends Service {
         }
 
     }
-    public void playSong(String songName) {
-        Uri uriSong = Uri.parse(songName);
+
+    public void setSongs(List<String> songs) {
+        this.songs.addAll(songs);
+        for (String string : this.songs) {
+            Log.d("SONGS", string);
+        }
+    }
+
+    public void playSong(int songPosition) {
+        Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(songPosition));
         mediaPlayer.reset();
         if (mediaPlayer.isPlaying()) {
             mediaPlayer.stop();
