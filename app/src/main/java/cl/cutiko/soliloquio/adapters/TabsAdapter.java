@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.views.main.BioFragment;
-import cl.cutiko.soliloquio.views.main.PlayerFragment;
+import cl.cutiko.soliloquio.views.main.SongsFragment;
 
 /**
  * Created by cutiko on 31-08-16.
@@ -25,11 +25,11 @@ public class TabsAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return PlayerFragment.newInstance();
+                return SongsFragment.newInstance();
             case 1:
                 return BioFragment.newInstance();
             default:
-                return PlayerFragment.newInstance();
+                return SongsFragment.newInstance();
         }
     }
 

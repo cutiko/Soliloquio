@@ -13,10 +13,10 @@ import android.view.ViewGroup;
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.adapters.SongsAdapter;
 
-public class PlayerFragment extends Fragment {
+public class SongsFragment extends Fragment {
 
-    public static PlayerFragment newInstance() {
-        return new PlayerFragment();
+    public static SongsFragment newInstance() {
+        return new SongsFragment();
     }
 
     @Override
@@ -28,7 +28,7 @@ public class PlayerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_player, container, false);
+        return inflater.inflate(R.layout.fragment_songs, container, false);
     }
 
     @Override
