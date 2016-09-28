@@ -63,7 +63,7 @@ public class PlayerService extends Service {
         this.position = position;
         Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(position));
         mediaPlayer.reset();
-        if (mediaPlayer.isPlaying()) {
+        if (isPlaying()) {
             mediaPlayer.stop();
         }
         try {
@@ -87,8 +87,16 @@ public class PlayerService extends Service {
         }
     }
 
+    public int getDuration() {
+        return mediaPlayer.getDuration();
+    }
+
+    public int getCurrentPosition() {
+        return mediaPlayer.getCurrentPosition();
+    }
+
     public void pauseSong() {
-        if (mediaPlayer.isPlaying()) {
+        if (isPlaying()) {
             mediaPlayer.stop();
         }
     }
@@ -121,6 +129,10 @@ public class PlayerService extends Service {
                 playSong(position);
             }
         }
+    }
+
+    public boolean isPlaying() {
+        return mediaPlayer.isPlaying();
     }
 
     public void setSongs() {
