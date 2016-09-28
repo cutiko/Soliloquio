@@ -45,7 +45,7 @@ public class BottomSheetFragment extends Fragment {
     private TextView songName;
 
     private static final int PLAYING = 1;
-    private static final int PAUSED = 0;
+    private static final int STOPED = 0;
     private ScheduledFuture<?> updateHandler;
 
     public BottomSheetFragment() {
@@ -84,7 +84,7 @@ public class BottomSheetFragment extends Fragment {
                             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                         }
                         playerService.playSong(intent.getIntExtra(SongsAdapter.SONG_POSITION, 0));
-                        updatePlayBtn();
+                        setPlay();
                     } else if (SongsFragment.SONGS.equals(intent.getAction())) {
                         playerService.setSongs(intent.getStringArrayListExtra(SongsFragment.SONGS_LIST));
                     }
@@ -125,7 +125,7 @@ public class BottomSheetFragment extends Fragment {
             }
         });
 
-        playBtn.setTag(PAUSED);
+        playBtn.setTag(STOPED);
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -165,19 +165,23 @@ public class BottomSheetFragment extends Fragment {
     }
 
     private void updatePlayBtn() {
-        if (PAUSED == (int) playBtn.getTag()) {
-            playBtn.setImageResource(R.mipmap.ic_stop_white_24dp);
-            playerService.resumeSong();
-            playBtn.setTag(PLAYING);
-            updateProgress();
-            songName.setText(playerService.getSongName());
+        if (STOPED == (int) playBtn.getTag()) {
+            setPlay();
         } else {
             playBtn.setImageResource(R.mipmap.ic_play_arrow_white_24dp);
             playerService.pauseSong();
-            playBtn.setTag(PAUSED);
+            playBtn.setTag(STOPED);
             resetProgress();
             songName.setText(getString(R.string.app_name));
         }
+    }
+
+    private void setPlay(){
+        playBtn.setImageResource(R.mipmap.ic_stop_white_24dp);
+        playerService.resumeSong();
+        playBtn.setTag(PLAYING);
+        updateProgress();
+        songName.setText(playerService.getSongName());
     }
 
     private void updateProgress() {
