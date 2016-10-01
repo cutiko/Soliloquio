@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import cl.cutiko.soliloquio.adapters.SongsAdapter;
 import cl.cutiko.soliloquio.background.PlayerService;
 import cl.cutiko.soliloquio.views.main.tabs.SongsFragment;
 
-public class BottomSheetFragment extends Fragment {
+public class BottomSheetFragment extends Fragment implements SongNameCallback {
 
     private PlayerService playerService;
     private boolean isBind = false;
@@ -139,9 +140,6 @@ public class BottomSheetFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (isBind) {
-            playerService.broadcastSongName();
-        }
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, intentFilter);
     }
 
@@ -174,5 +172,12 @@ public class BottomSheetFragment extends Fragment {
             isBind = false;
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void refreshTitle() {
+        if (isBind) {
+            playerService.broadcastSongName();
+        }
     }
 }

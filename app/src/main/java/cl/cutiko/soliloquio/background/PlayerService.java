@@ -153,15 +153,17 @@ public class PlayerService extends Service {
     }
 
     public void broadcastSongName() {
-        Intent intent = new Intent();
-        intent.setAction(CURRENT_SONG);
-        Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(position));
-        FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
-        mmr.setDataSource(this, uriSong);
-        String title = mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_TITLE);
-        mmr.release();
-        intent.putExtra(SONG_TITLE, title);
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        if (position != null) {
+            Intent intent = new Intent();
+            intent.setAction(CURRENT_SONG);
+            Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(position));
+            FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
+            mmr.setDataSource(this, uriSong);
+            String title = mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_TITLE);
+            mmr.release();
+            intent.putExtra(SONG_TITLE, title);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        }
     }
 
 

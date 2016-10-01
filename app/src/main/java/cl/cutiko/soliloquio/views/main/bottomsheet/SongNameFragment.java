@@ -25,10 +25,17 @@ public class SongNameFragment extends Fragment {
 
     private BroadcastReceiver receiver;
     private IntentFilter filter;
+    private SongNameCallback callback;
     private TextView songName;
 
     public SongNameFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        callback = (SongNameCallback) getParentFragment();
     }
 
     @Override
@@ -37,11 +44,8 @@ public class SongNameFragment extends Fragment {
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.d("SONGName", "receiver");
                 if (intent != null) {
-                    Log.d("SONGName", "intent");
                     if (PlayerService.CURRENT_SONG.equals(intent.getAction())) {
-                        Log.d("SONGName", "current song");
                         String title = intent.getStringExtra(PlayerService.SONG_TITLE);
                         songName.setText(title);
                     }
@@ -69,6 +73,7 @@ public class SongNameFragment extends Fragment {
     public void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, filter);
+        callback.refreshTitle();
     }
 
     @Override
