@@ -144,7 +144,7 @@ public class PlayerService extends Service {
 
     public void setSongs() {
         Field[] files = R.raw.class.getFields();
-        Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + R.raw.primera);
+        Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + R.raw.beso);
         Log.d("FILENAME", files[1].getName());
 
         FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
