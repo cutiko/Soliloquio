@@ -1,4 +1,4 @@
-package cl.cutiko.soliloquio.views.main;
+package cl.cutiko.soliloquio.views.main.tabs;
 
 
 import android.content.Context;
@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.adapters.SongsAdapter;

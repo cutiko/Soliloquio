@@ -64,7 +64,7 @@
 
         <fragment
             android:id="@+id/bottomSheetFragment"
-            android:name="cl.cutiko.soliloquio.views.main.BottomSheetFragment"
+            android:name="cl.cutiko.soliloquio.views.main.bottomsheet.BottomSheetFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:layout="@layout/fragment_bottom_sheet" />

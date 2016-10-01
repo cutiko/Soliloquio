@@ -1,4 +1,4 @@
-package cl.cutiko.soliloquio.views.main;
+package cl.cutiko.soliloquio.views.main.tabs;
 
 
 import android.os.Bundle;

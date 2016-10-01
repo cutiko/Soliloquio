@@ -1,4 +1,4 @@
-package cl.cutiko.soliloquio.views.main;
+package cl.cutiko.soliloquio.views.main.bottomsheet;
 
 
 import android.content.BroadcastReceiver;
@@ -28,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.adapters.SongsAdapter;
 import cl.cutiko.soliloquio.background.PlayerService;
+import cl.cutiko.soliloquio.views.main.tabs.SongsFragment;
 import info.abdolahi.CircularMusicProgressBar;
 
 public class BottomSheetFragment extends Fragment {

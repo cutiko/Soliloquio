@@ -4,4 +4,4 @@
     android:id="@+id/songsList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.main.SongsFragment" />
+    tools:context=".views.main.tabs.SongsFragment" />
