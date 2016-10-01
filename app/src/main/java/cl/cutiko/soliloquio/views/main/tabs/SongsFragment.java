@@ -1,9 +1,11 @@
 package cl.cutiko.soliloquio.views.main.tabs;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -62,8 +64,28 @@ public class SongsFragment extends Fragment {
     }
 
     private class SetSongs extends SongList {
+
+        private ProgressDialog progressDialog;
+
         public SetSongs(Context context) {
             super(context);
+        }
+
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMax(20);
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.setProgressNumberFormat(getString(R.string.songs));
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            progressDialog.setProgress(values[0]);
         }
 
         @Override
@@ -74,6 +96,12 @@ public class SongsFragment extends Fragment {
             sendSongs.setAction(FILES);
             sendSongs.putStringArrayListExtra(FILE_LIST, (ArrayList<String>) getFilesName());
             LocalBroadcastManager.getInstance(getContext()).sendBroadcast(sendSongs);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog.dismiss();
+                }
+            }, 800);
         }
     }
 }

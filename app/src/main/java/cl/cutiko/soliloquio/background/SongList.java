@@ -40,6 +40,7 @@ public class SongList extends AsyncTask<Void, Integer, Boolean> {
                 mmr.setDataSource(context, uriSong);
                 String songName = mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_TITLE);
                 songs.add(new Song(songName, fileName));
+                publishProgress(i+1);
             } catch (RuntimeException e) {
 
             }
