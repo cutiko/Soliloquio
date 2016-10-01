@@ -63,8 +63,8 @@ public class ProgressFragment extends Fragment {
 
     @Override
     public void onResume() {
-        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, filter);
         super.onResume();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, filter);
     }
 
     @Override
