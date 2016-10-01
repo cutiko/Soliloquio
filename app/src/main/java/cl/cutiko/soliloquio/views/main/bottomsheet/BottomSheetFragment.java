@@ -35,7 +35,6 @@ public class BottomSheetFragment extends Fragment {
 
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageButton playBtn, prevBtn, nextBtn;
-    /*private TextView songName;*/
 
     private static final int PLAYING = 1;
     private static final int STOPED = 0;
@@ -105,14 +104,12 @@ public class BottomSheetFragment extends Fragment {
         prevBtn = (ImageButton) view.findViewById(R.id.prevBtn);
         playBtn = (ImageButton) view.findViewById(R.id.playBtn);
         nextBtn = (ImageButton) view.findViewById(R.id.nextBtn);
-        /*songName = (TextView) view.findViewById(R.id.songName);*/
 
 
         prevBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playerService.prevSong();
-                setSongName();
             }
         });
 
@@ -128,7 +125,6 @@ public class BottomSheetFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 playerService.nextSong();
-                setSongName();
             }
         });
     }
@@ -162,7 +158,6 @@ public class BottomSheetFragment extends Fragment {
             playBtn.setImageResource(R.mipmap.ic_play_arrow_white_24dp);
             playerService.stopSong();
             playBtn.setTag(STOPED);
-            /*songName.setText(getString(R.string.app_name));*/
         }
     }
 
@@ -170,7 +165,6 @@ public class BottomSheetFragment extends Fragment {
         playBtn.setImageResource(R.mipmap.ic_stop_white_24dp);
         playerService.resumeSong();
         playBtn.setTag(PLAYING);
-        /*songName.setText(playerService.getSongName());*/
     }
 
     @Override
@@ -180,9 +174,5 @@ public class BottomSheetFragment extends Fragment {
             isBind = false;
         }
         super.onDestroy();
-    }
-
-    private void setSongName(){
-        /*songName.setText(playerService.getSongName());*/
     }
 }
