@@ -5,8 +5,11 @@
 
     <string name="facebook_app_id">312189625825323</string>
 
+    <string name="share">
+        Estoy agradecido porque te hayas interesado en Soliloquio, por lo que me siento extraño al pedirte un favor. Si te ha gustado ¿Puedes compartirlo usando los botones que están acá?
+    </string>
+
     <string name="presentation">
-        Estoy agradecido porque te hayas interesado en Soliloquio, por lo que me siento extraño al pedirte un favor. Si te ha gustado ¿Puedes compartirlo usando los botones que están acá?\n\n
 
         Cuando me pidieron unas palabras que explicaran lo que es Soliloquio, con lo único que pude salir fue con: \n\n
 

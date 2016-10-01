@@ -47,4 +47,16 @@
         <item name="android:textColor">@color/black_overlay</item>
     </style>
 
+    <style name="FacebookBtn">
+        <item name="colorButtonNormal">#3B5998</item>
+    </style>
+
+    <style name="TwitterBtn">
+        <item name="colorButtonNormal">#33ADD6</item>
+    </style>
+
+    <style name="PrimaryDarkerBtn">
+        <item name="colorButtonNormal">@color/colorPrimaryDarker</item>
+    </style>
+
 </resources>

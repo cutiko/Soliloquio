@@ -1,7 +1,6 @@
-package cl.cutiko.soliloquio.views.main.tabs;
+package cl.cutiko.soliloquio.views.main.tabs.bio;
 
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -84,7 +83,7 @@ public class BioFragment extends Fragment {
             }
         });
         if (ShareDialog.canShow(ShareLinkContent.class)) {
-            shareDialog.show(content);
+            /*shareDialog.show(content);*/
         }
         /*https://developers.facebook.com/docs/sharing/android*/
         /*http://android-arsenal.com/details/1/2740*/

@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import cl.cutiko.soliloquio.R;
-import cl.cutiko.soliloquio.views.main.tabs.BioFragment;
+import cl.cutiko.soliloquio.views.main.tabs.bio.BioFragment;
 import cl.cutiko.soliloquio.views.main.tabs.SongsFragment;
 
 /**
