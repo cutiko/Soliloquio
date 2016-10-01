@@ -15,6 +15,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 
@@ -25,16 +26,24 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import cl.cutiko.soliloquio.R;
 import wseemann.media.FFmpegMediaMetadataRetriever;
 
 public class PlayerService extends Service {
 
+    public static final String PROGRESS = "cl.cutiko.soliloquio.background.PROGRESS";
+    public static final String CURRENT_PROGRESS = "cl.cutiko.soliloquio.background.CURRENT_PROGRESS";
+
     private final IBinder binder = new LocalBinder();
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private List<String> songs = new ArrayList<>();
     private Integer position;
+    private ScheduledFuture<?> updateHandler;
 
     public PlayerService() {
     }
@@ -73,6 +82,10 @@ public class PlayerService extends Service {
                 @Override
                 public void onPrepared(MediaPlayer mediaPlayer) {
                     mediaPlayer.start();
+                    if (updateHandler != null) {
+                        updateHandler.cancel(true);
+                    }
+                    updateProgress();
                 }
             });
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -82,23 +95,17 @@ public class PlayerService extends Service {
                         PlayerService.this.position++;
                         playSong(PlayerService.this.position);
                     }
+                    updateHandler.cancel(true);
                 }
             });
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
-    public int getDuration() {
-        return mediaPlayer.getDuration();
-    }
-
-    public int getCurrentPosition() {
-        return mediaPlayer.getCurrentPosition();
-    }
-
-    public void pauseSong() {
+    public void stopSong() {
         if (isPlaying()) {
             mediaPlayer.stop();
         }
@@ -141,6 +148,33 @@ public class PlayerService extends Service {
     public String getSongName() {
         return songs.get(position);
     }
+
+    private void updateProgress() {
+        final Intent intent = new Intent();
+        intent.setAction(PROGRESS);
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        Runnable updater = new Runnable() {
+            @Override
+            public void run() {
+                final float percent = mediaPlayer.getCurrentPosition() * 100 / mediaPlayer.getDuration();
+                intent.putExtra(CURRENT_PROGRESS, percent);
+                LocalBroadcastManager.getInstance(PlayerService.this).sendBroadcast(intent);
+            }
+        };
+
+        updateHandler = scheduler.scheduleWithFixedDelay(updater, 2, 2, TimeUnit.SECONDS);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
     public void setSongs() {
         Field[] files = R.raw.class.getFields();

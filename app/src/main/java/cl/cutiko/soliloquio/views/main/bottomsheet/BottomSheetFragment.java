@@ -20,16 +20,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.TimeUnit;
-
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.adapters.SongsAdapter;
 import cl.cutiko.soliloquio.background.PlayerService;
 import cl.cutiko.soliloquio.views.main.tabs.SongsFragment;
-import info.abdolahi.CircularMusicProgressBar;
 
 public class BottomSheetFragment extends Fragment {
 
@@ -47,7 +41,6 @@ public class BottomSheetFragment extends Fragment {
 
     private static final int PLAYING = 1;
     private static final int STOPED = 0;
-    private ScheduledFuture<?> updateHandler;
 
     public BottomSheetFragment() {
         // Required empty public constructor
@@ -122,7 +115,6 @@ public class BottomSheetFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 playerService.prevSong();
-                updateProgress();
                 setSongName();
             }
         });
@@ -139,7 +131,6 @@ public class BottomSheetFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 playerService.nextSong();
-                updateProgress();
                 setSongName();
             }
         });
@@ -156,14 +147,12 @@ public class BottomSheetFragment extends Fragment {
     public void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, intentFilter);
-        updateProgress();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
-        resetProgress();
     }
 
     private void updatePlayBtn() {
@@ -171,9 +160,8 @@ public class BottomSheetFragment extends Fragment {
             setPlay();
         } else {
             playBtn.setImageResource(R.mipmap.ic_play_arrow_white_24dp);
-            playerService.pauseSong();
+            playerService.stopSong();
             playBtn.setTag(STOPED);
-            resetProgress();
             songName.setText(getString(R.string.app_name));
         }
     }
@@ -182,36 +170,7 @@ public class BottomSheetFragment extends Fragment {
         playBtn.setImageResource(R.mipmap.ic_stop_white_24dp);
         playerService.resumeSong();
         playBtn.setTag(PLAYING);
-        updateProgress();
         songName.setText(playerService.getSongName());
-    }
-
-    private void updateProgress() {
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        Runnable updater = new Runnable() {
-            @Override
-            public void run() {
-                if (isBound && playerService.isPlaying()) {
-                    final float percent = playerService.getCurrentPosition() * 100 / playerService.getDuration();
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            /*circularPb.setValue(percent);*/
-                        }
-                    });
-                }
-            }
-        };
-
-        updateHandler = scheduler.scheduleWithFixedDelay(updater, 2, 2, TimeUnit.SECONDS);
-    }
-
-    private void resetProgress() {
-        if (updateHandler != null) {
-            updateHandler.cancel(true);
-            updateHandler = null;
-            /*circularPb.setValue(0);*/
-        }
     }
 
     @Override
