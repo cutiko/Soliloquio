@@ -55,7 +55,7 @@ public class PlayerService extends Service {
     public void setSongs(List<String> songs) {
         this.songs.addAll(songs);
         for (String string : this.songs) {
-            Log.d("SONGS", string);
+            Log.d("FILES", string);
         }
     }
 

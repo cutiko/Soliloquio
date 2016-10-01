@@ -1,6 +1,7 @@
 package cl.cutiko.soliloquio.views.main;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +23,8 @@ import cl.cutiko.soliloquio.background.SongList;
 public class SongsFragment extends Fragment {
 
     private SongsAdapter songsAdapter;
-    public static final String SONGS = "cl.cutiko.soliloquio.views.background.SongList.SONGS";
-    public static final String SONGS_LIST = "cl.cutiko.soliloquio.views.background.SongList.SONGS_LIST";
-    private boolean areSongSet = false;
+    public static final String FILES = "cl.cutiko.soliloquio.views.background.SongList.FILES";
+    public static final String FILE_LIST = "cl.cutiko.soliloquio.views.background.SongList.FILE_LIST";
 
     public static SongsFragment newInstance() {
         return new SongsFragment();
@@ -58,21 +57,24 @@ public class SongsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!areSongSet) {
-            new SetSongs().execute();
+        if (!songsAdapter.listSet()) {
+            new SetSongs(getContext()).execute();
         }
     }
 
     private class SetSongs extends SongList {
+        public SetSongs(Context context) {
+            super(context);
+        }
+
         @Override
         protected void onPostExecute(Boolean aBoolean) {
-            List<String> songs = getSongs();
-            songsAdapter.setList(songs);
+            songsAdapter.setList(getSongsName());
+
             Intent sendSongs = new Intent();
-            sendSongs.setAction(SONGS);
-            sendSongs.putStringArrayListExtra(SONGS_LIST, (ArrayList<String>) songs);
+            sendSongs.setAction(FILES);
+            sendSongs.putStringArrayListExtra(FILE_LIST, (ArrayList<String>) getFilesName());
             LocalBroadcastManager.getInstance(getContext()).sendBroadcast(sendSongs);
-            areSongSet = true;
         }
     }
 }

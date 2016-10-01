@@ -86,8 +86,8 @@ public class BottomSheetFragment extends Fragment {
                         }
                         playerService.playSong(intent.getIntExtra(SongsAdapter.SONG_POSITION, 0));
                         setPlay();
-                    } else if (SongsFragment.SONGS.equals(intent.getAction())) {
-                        playerService.setSongs(intent.getStringArrayListExtra(SongsFragment.SONGS_LIST));
+                    } else if (SongsFragment.FILES.equals(intent.getAction())) {
+                        playerService.setSongs(intent.getStringArrayListExtra(SongsFragment.FILE_LIST));
                     }
                 }
             }
@@ -97,7 +97,7 @@ public class BottomSheetFragment extends Fragment {
     private void setFilter() {
         intentFilter = new IntentFilter();
         intentFilter.addAction(SongsAdapter.SONG_ACTION);
-        intentFilter.addAction(SongsFragment.SONGS);
+        intentFilter.addAction(SongsFragment.FILES);
     }
 
     @Override

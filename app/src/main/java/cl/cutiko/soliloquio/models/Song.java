@@ -5,17 +5,18 @@ package cl.cutiko.soliloquio.models;
  */
 public class Song {
 
-    private String name;
+    private String name, file;
 
-    public Song(String name) {
+    public Song(String name, String file) {
         this.name = name;
+        this.file = file;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getFile() {
+        return file;
     }
 }

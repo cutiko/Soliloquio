@@ -73,4 +73,8 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
         LocalBroadcastManager.getInstance(context).sendBroadcast(broadcastSong);
     }
 
+    public boolean listSet() {
+        return (songs.size() > 0);
+    }
+
 }
