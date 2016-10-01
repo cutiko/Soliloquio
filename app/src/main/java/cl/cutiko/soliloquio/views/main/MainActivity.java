@@ -62,6 +62,6 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
     }
 
-    //TODO el share, loading para la lista, el icono, las notificaciones
+    //TODO loading para la lista, el icono, las notificaciones
 
 }
