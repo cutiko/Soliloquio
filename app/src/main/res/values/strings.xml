@@ -32,4 +32,12 @@
 
     </string>
 
+    <string name="share_msg">
+        Descarga el disco/app Soliloquio #rap
+    </string>
+
+    <string name="share_url">
+        http://www.google.com
+    </string>
+
 </resources>
