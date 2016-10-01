@@ -53,6 +53,7 @@ public class BioFragment extends Fragment {
         /*startActivity(intent);*/
 
         /*https://developers.facebook.com/docs/sharing/android*/
+        /*http://android-arsenal.com/details/1/2740*/
     }
 
     public static String urlEncode(String s) {
