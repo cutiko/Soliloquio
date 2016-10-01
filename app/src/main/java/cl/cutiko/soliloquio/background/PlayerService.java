@@ -148,11 +148,11 @@ public class PlayerService extends Service {
         Log.d("FILENAME", files[1].getName());
 
         FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
-        mmr.setDataSource(this, uriSong);
+        /*mmr.setDataSource(this, uriSong);
         Log.d("ALBUM", String.valueOf(mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ALBUM)));
         Log.d("TITLE", String.valueOf(mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_TITLE)));
         Log.d("ARTIST", String.valueOf(mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_ARTIST)));
-        Bitmap b = mmr.getFrameAtTime(2000000, FFmpegMediaMetadataRetriever.OPTION_CLOSEST); // frame at 2 seconds
+        Bitmap b = mmr.getFrameAtTime(2000000, FFmpegMediaMetadataRetriever.OPTION_CLOSEST); // frame at 2 seconds*/
         byte [] artwork = mmr.getEmbeddedPicture();
 
         mmr.release();

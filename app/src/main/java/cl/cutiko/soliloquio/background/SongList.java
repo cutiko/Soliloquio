@@ -36,9 +36,14 @@ public class SongList extends AsyncTask<Void, Integer, Boolean> {
         for(int i = 0; i < fields.length; i++){
             String fileName = fields[i].getName();
             Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + fileName);
-            mmr.setDataSource(context, uriSong);
-            String songName = mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_TITLE);
-            songs.add(new Song(songName, fileName));
+            try {
+                mmr.setDataSource(context, uriSong);
+                String songName = mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_TITLE);
+                songs.add(new Song(songName, fileName));
+            } catch (RuntimeException e) {
+
+            }
+
         }
         mmr.release();
 
