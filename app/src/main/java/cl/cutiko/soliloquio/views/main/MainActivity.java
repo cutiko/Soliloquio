@@ -62,4 +62,6 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
     }
 
+    //TODO jingle, el 2do tab, el share, el icono, las notificaciones
+
 }
