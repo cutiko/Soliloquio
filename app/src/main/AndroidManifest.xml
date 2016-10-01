@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -11,6 +12,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
         <activity
             android:name=".views.splash.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -31,7 +35,11 @@
         <service
             android:name=".background.PlayerService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false"/>
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider312189625825323"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
     </application>
 
 </manifest>

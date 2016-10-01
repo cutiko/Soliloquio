@@ -13,6 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -52,6 +60,32 @@ public class BioFragment extends Fragment {
 
         /*startActivity(intent);*/
 
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                .build();
+
+        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+        CallbackManager callbackManager = new CallbackManager.Factory().create();
+        ShareDialog shareDialog = new ShareDialog(getActivity());
+        shareDialog.registerCallback(callbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
+            }
+        });
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            shareDialog.show(content);
+        }
         /*https://developers.facebook.com/docs/sharing/android*/
         /*http://android-arsenal.com/details/1/2740*/
     }

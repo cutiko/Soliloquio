@@ -17,6 +17,7 @@ allprojects {
         jcenter()
         maven { url 'https://dl.bintray.com/wangyuwei/maven' }
         maven { url "https://jitpack.io" }
+        mavenCentral()
     }
 }
 

@@ -28,5 +28,6 @@ dependencies {
     compile 'com.flaviofaria:kenburnsview:1.0.7'
     compile 'com.github.aliab:circular-music-progressbar:v1.0'
     compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.11'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     testCompile 'junit:junit:4.12'
 }
