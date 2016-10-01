@@ -36,7 +36,6 @@ public class BottomSheetFragment extends Fragment {
 
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageButton playBtn, prevBtn, nextBtn;
-    /*private CircularMusicProgressBar circularPb;*/
     private TextView songName;
 
     private static final int PLAYING = 1;
@@ -104,7 +103,6 @@ public class BottomSheetFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        /*circularPb = (CircularMusicProgressBar) view.findViewById(R.id.songArt);*/
         prevBtn = (ImageButton) view.findViewById(R.id.prevBtn);
         playBtn = (ImageButton) view.findViewById(R.id.playBtn);
         nextBtn = (ImageButton) view.findViewById(R.id.nextBtn);
