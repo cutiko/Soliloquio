@@ -1,28 +1,16 @@
 package cl.cutiko.soliloquio.background;
 
 import android.app.Service;
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
-import android.provider.MediaStore;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 
-import java.io.FileDescriptor;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +25,9 @@ import wseemann.media.FFmpegMediaMetadataRetriever;
 public class PlayerService extends Service {
 
     public static final String PROGRESS = "cl.cutiko.soliloquio.background.PROGRESS";
+    public static final String CURRENT_SONG = "cl.cutiko.soliloquio.background.CURRENT_SONG";
     public static final String CURRENT_PROGRESS = "cl.cutiko.soliloquio.background.CURRENT_PROGRESS";
+    public static final String SONG_TITLE = "cl.cutiko.soliloquio.background.SONG_TITLE";
 
     private final IBinder binder = new LocalBinder();
     private MediaPlayer mediaPlayer = new MediaPlayer();
@@ -86,6 +76,7 @@ public class PlayerService extends Service {
                         updateHandler.cancel(true);
                     }
                     updateProgress();
+                    broadcastSongName();
                 }
             });
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -145,10 +136,6 @@ public class PlayerService extends Service {
         return mediaPlayer.isPlaying();
     }
 
-    public String getSongName() {
-        return songs.get(position);
-    }
-
     private void updateProgress() {
         final Intent intent = new Intent();
         intent.setAction(PROGRESS);
@@ -163,6 +150,18 @@ public class PlayerService extends Service {
         };
 
         updateHandler = scheduler.scheduleWithFixedDelay(updater, 2, 2, TimeUnit.SECONDS);
+    }
+
+    public void broadcastSongName() {
+        Intent intent = new Intent();
+        intent.setAction(CURRENT_SONG);
+        Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(position));
+        FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
+        mmr.setDataSource(this, uriSong);
+        String title = mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_TITLE);
+        mmr.release();
+        intent.putExtra(SONG_TITLE, title);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
 
@@ -222,7 +221,7 @@ public class PlayerService extends Service {
         Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
-                Log.d("SONG_NAME", cursor.getString(1));
+                Log.d("CURRENT_SONG", cursor.getString(1));
             }
             cursor.close();
         } else {

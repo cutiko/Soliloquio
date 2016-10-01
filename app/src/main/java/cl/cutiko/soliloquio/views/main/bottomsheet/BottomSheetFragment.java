@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.adapters.SongsAdapter;
@@ -28,7 +27,7 @@ import cl.cutiko.soliloquio.views.main.tabs.SongsFragment;
 public class BottomSheetFragment extends Fragment {
 
     private PlayerService playerService;
-    private boolean isBound = false;
+    private boolean isBind = false;
     private ServiceConnection serviceConnection;
 
     private BroadcastReceiver broadcastReceiver;
@@ -36,7 +35,7 @@ public class BottomSheetFragment extends Fragment {
 
     private BottomSheetBehavior bottomSheetBehavior;
     private ImageButton playBtn, prevBtn, nextBtn;
-    private TextView songName;
+    /*private TextView songName;*/
 
     private static final int PLAYING = 1;
     private static final int STOPED = 0;
@@ -55,7 +54,7 @@ public class BottomSheetFragment extends Fragment {
                 PlayerService.LocalBinder binder = (PlayerService.LocalBinder) iBinder;
                 playerService = binder.getService();
                 playerService.setSongs();
-                isBound = true;
+                isBind = true;
             }
 
             @Override
@@ -106,7 +105,7 @@ public class BottomSheetFragment extends Fragment {
         prevBtn = (ImageButton) view.findViewById(R.id.prevBtn);
         playBtn = (ImageButton) view.findViewById(R.id.playBtn);
         nextBtn = (ImageButton) view.findViewById(R.id.nextBtn);
-        songName = (TextView) view.findViewById(R.id.songName);
+        /*songName = (TextView) view.findViewById(R.id.songName);*/
 
 
         prevBtn.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +143,9 @@ public class BottomSheetFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (isBind) {
+            playerService.broadcastSongName();
+        }
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, intentFilter);
     }
 
@@ -160,7 +162,7 @@ public class BottomSheetFragment extends Fragment {
             playBtn.setImageResource(R.mipmap.ic_play_arrow_white_24dp);
             playerService.stopSong();
             playBtn.setTag(STOPED);
-            songName.setText(getString(R.string.app_name));
+            /*songName.setText(getString(R.string.app_name));*/
         }
     }
 
@@ -168,19 +170,19 @@ public class BottomSheetFragment extends Fragment {
         playBtn.setImageResource(R.mipmap.ic_stop_white_24dp);
         playerService.resumeSong();
         playBtn.setTag(PLAYING);
-        songName.setText(playerService.getSongName());
+        /*songName.setText(playerService.getSongName());*/
     }
 
     @Override
     public void onDestroy() {
-        if (isBound) {
+        if (isBind) {
             getActivity().unbindService(serviceConnection);
-            isBound = false;
+            isBind = false;
         }
         super.onDestroy();
     }
 
     private void setSongName(){
-        songName.setText(playerService.getSongName());
+        /*songName.setText(playerService.getSongName());*/
     }
 }

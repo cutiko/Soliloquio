@@ -53,17 +53,13 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/songName"
-            android:layout_width="match_parent"
+        <fragment
+            android:id="@+id/songNameFragment"
+            android:name="cl.cutiko.soliloquio.views.main.bottomsheet.SongNameFragment"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/controlsWrapper"
-            android:layout_toEndOf="@id/progressFragment"
-            android:paddingBottom="16dp"
-            android:paddingLeft="12dp"
-            android:paddingTop="16dp"
-            android:text="@string/app_name"
-            android:textColor="@android:color/white" />
+            android:layout_toEndOf="@id/progressFragment" />
 
     </RelativeLayout>
 
