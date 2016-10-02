@@ -24,7 +24,6 @@ import com.facebook.share.widget.ShareDialog;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import cl.cutiko.soliloquio.R;
 
