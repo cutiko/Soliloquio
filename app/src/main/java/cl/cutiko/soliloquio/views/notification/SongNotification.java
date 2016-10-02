@@ -21,7 +21,6 @@ public class SongNotification {
 
     private static final String NOTIFICATION_TAG = "Song";
 
-
     public static void notify(final Context context, final String song) {
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
@@ -31,13 +30,7 @@ public class SongNotification {
                 .setContentText(song)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setTicker(song)
-                .setContentIntent(
-                        PendingIntent.getActivity(
-                                context,
-                                0,
-                                new Intent(context, MainActivity.class),
-                                PendingIntent.FLAG_CANCEL_CURRENT))
-
+                .setContentIntent(notificationIntent(context))
                 .setAutoCancel(true);
 
         notify(context, builder.build());
@@ -63,5 +56,11 @@ public class SongNotification {
         } else {
             nm.cancel(NOTIFICATION_TAG.hashCode());
         }
+    }
+
+    private static PendingIntent notificationIntent(Context context){
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 }
