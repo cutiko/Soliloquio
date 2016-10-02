@@ -9,6 +9,7 @@ import com.flaviofaria.kenburnsview.KenBurnsView;
 
 import cl.cutiko.soliloquio.R;
 import cl.cutiko.soliloquio.adapters.TabsAdapter;
+import cl.cutiko.soliloquio.views.notification.SongNotification;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +62,4 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
     }
-
-    //TODO el icono, las notificaciones
-
 }

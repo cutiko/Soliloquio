@@ -42,4 +42,6 @@
 
     <string name="songs">Canciones</string>
 
+    <string name="notification_title">Reproduciendo</string>
+
 </resources>
