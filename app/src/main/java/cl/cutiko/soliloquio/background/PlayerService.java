@@ -16,6 +16,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import cl.cutiko.soliloquio.views.notification.SongNotification;
 import wseemann.media.FFmpegMediaMetadataRetriever;
 
 public class PlayerService extends Service {
@@ -30,6 +31,7 @@ public class PlayerService extends Service {
     private List<String> songs = new ArrayList<>();
     private Integer position;
     private ScheduledFuture<?> updateHandler;
+    private boolean notifiy = false;
 
     public PlayerService() {
     }
@@ -57,6 +59,10 @@ public class PlayerService extends Service {
                 }
                 updateProgress();
                 broadcastSongName();
+                if (notifiy) {
+                    sendNotification();
+                }
+
             }
         });
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -148,13 +154,31 @@ public class PlayerService extends Service {
         if (position != null) {
             Intent intent = new Intent();
             intent.setAction(CURRENT_SONG);
-            Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(position));
-            FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
-            mmr.setDataSource(this, uriSong);
-            String title = mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_TITLE);
-            mmr.release();
-            intent.putExtra(SONG_TITLE, title);
+            intent.putExtra(SONG_TITLE, getSongName());
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+        }
+    }
+
+    private String getSongName(){
+        Uri uriSong = Uri.parse("android.resource://cl.cutiko.soliloquio/raw/" + songs.get(position));
+        FFmpegMediaMetadataRetriever mmr = new FFmpegMediaMetadataRetriever();
+        mmr.setDataSource(this, uriSong);
+        String title = mmr.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_TITLE);
+        mmr.release();
+        return title;
+    }
+
+    public void sendNotification() {
+        notifiy = true;
+        if (position != null) {
+            new SongNotification().notify(this, getSongName());
+        }
+    }
+
+    public void cancelNotification() {
+        if (notifiy) {
+            notifiy = false;
+            new SongNotification().cancel(this);
         }
     }
 }

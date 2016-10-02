@@ -140,12 +140,18 @@ public class BottomSheetFragment extends Fragment implements SongNameCallback {
     public void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(broadcastReceiver, intentFilter);
+        if (isBind) {
+            playerService.cancelNotification();
+        }
     }
 
     @Override
     public void onPause() {
-        super.onPause();
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(broadcastReceiver);
+        if (isBind) {
+            playerService.sendNotification();
+        }
+        super.onPause();
     }
 
     private void updatePlayBtn() {
